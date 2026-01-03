@@ -459,6 +459,7 @@ services:
         - "traefik.docker.network=mailcowdockerized_mailcow-network"
         - "traefik.http.routers.mailcow.rule=Host(`${MAILCOW_HOSTNAME}`)"
         - "traefik.http.routers.mailcow.entrypoints=websecure"
+        - "traefik.http.routers.mailcow.service=mailcow"
         - "traefik.http.routers.mailcow.tls=true"
         - "traefik.http.routers.mailcow.tls.certresolver=mytlschallenge"
         - "traefik.http.routers.mailcow.middlewares=security-headers@file"
