@@ -1,0 +1,32 @@
+name: Test Download Links
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  test-downloads:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Test download links
+        run: |
+          chmod +x tests/test-downloads.sh
+          ./tests/test-downloads.sh
+        env:
+          BASE_URL: https://mail.tobias-weiss.org
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "::error::Download link tests failed. Please check the downloads directory."
+          exit 1
