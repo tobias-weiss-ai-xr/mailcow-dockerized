@@ -55,6 +55,7 @@ http {
         location ^~ /.well-known/acme-challenge/ {
             allow all;
             default_type "text/plain";
+            try_files $uri $uri/ =404;
         }
         location ^~ /.well-known/mta-sts.txt {
             allow all;
